@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MetaDataService } from './services/meta-data.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './header/header.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -27,6 +27,11 @@ import { CreateButtonComponent } from './atomic/create-button/create-button.comp
 import { MatTabsModule } from '@angular/material/tabs';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
+import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading';
+import { StorageService } from './services/storage.service';
+import { TokenInterceptor } from './services/token.interceptor';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -47,6 +52,14 @@ import { ToastrModule } from 'ngx-toastr';
     ReactiveFormsModule,
     FormsModule,
     ToastrModule.forRoot(),
+    NgxLoadingModule.forRoot({
+      animationType: ngxLoadingAnimationTypes.threeBounce,
+      backdropBackgroundColour: 'rgba(0,0,0,0.1)',
+      backdropBorderRadius: '10px',
+      primaryColour: '#6A60A9',
+      secondaryColour: '#6A60A9',
+      tertiaryColour: '#ffffff'
+    }),
     FlexLayoutModule,
     MatToolbarModule,
     MatIconModule,
@@ -58,9 +71,15 @@ import { ToastrModule } from 'ngx-toastr';
     MatDialogModule,
     MatInputModule,
     MatSelectModule,
-    MatTabsModule
+    MatTabsModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
-  providers: [MetaDataService],
+  providers: [
+    MetaDataService,
+    StorageService,
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
   entryComponents: [CreateButtonComponent, EditButtonComponent, CreateOrUpdateExpenseComponent]
 })
