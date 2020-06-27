@@ -25,6 +25,7 @@
     "@angular/router": "~8.2.14",
     "hammerjs": "^2.0.8",
     "ng2-smart-table": "^1.6.0",
+    "ngx-loading": "^8.0.0",
     "ngx-toastr": "^11.3.3",
     "rxjs": "~6.4.0",
     "rxjs-compat": "^6.5.5",
