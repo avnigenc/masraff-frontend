@@ -1,0 +1,69 @@
+<h1 mat-dialog-title>İncele/Güncelle</h1>
+<div mat-dialog-content>
+  <div fxLayout="column" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px">
+    <div fxFlex>
+      <mat-form-field appearance="outline" style="width: 100%">
+        <mat-label>Şirket</mat-label>
+        <input matInput [value]="expense.companyName" [disabled]="!isEditable">
+      </mat-form-field>
+    </div>
+    <div fxFlex>
+      <mat-form-field appearance="outline" style="width: 100%">
+        <mat-label>Total tutar</mat-label>
+        <input matInput [value]="expense.companyName" [disabled]="!isEditable">
+      </mat-form-field>
+    </div>
+    <div fxFlex>
+      <mat-form-field appearance="outline" style="width: 100%">
+        <mat-label>KVD tutarı</mat-label>
+        <input matInput [value]="expense.vatAmount" [disabled]="!isEditable">
+      </mat-form-field>
+    </div>
+    <div fxFlex>
+      <mat-form-field appearance="outline" style="width: 100%">
+        <mat-label>KDV oranı</mat-label>
+        <mat-select [(value)]="expense.vatRate.amount" [disabled]="!isEditable">
+          <mat-option *ngFor="let vatRate of vatRates" [value]="vatRate.amount">
+            {{ vatRate.amount }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div fxFlex>
+      <mat-form-field appearance="outline" style="width: 100%">
+        <mat-label>Para birimi</mat-label>
+        <mat-select [(value)]="expense.currency.name" [disabled]="!isEditable">
+          <mat-option *ngFor="let currency of currencies" [value]="currency.name">
+            {{ currency.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div fxFlex>
+      <mat-form-field appearance="outline" style="width: 100%">
+        <mat-label>Fiş numarası</mat-label>
+        <input matInput [value]="expense.receiptNo" [disabled]="!isEditable">
+      </mat-form-field>
+    </div>
+    <div fxFlex>
+      <mat-form-field appearance="outline" style="width: 100%">
+        <mat-label>Fiş tarihi</mat-label>
+        <input matInput [value]="expense.receiptDate | date" [disabled]="!isEditable">
+      </mat-form-field>
+    </div>
+    <div fxFlex>
+      <mat-form-field appearance="outline" style="width: 100%">
+        <mat-label>Fiş ödeme tarihi</mat-label>
+        <input matInput [value]="expense.expenseDepositDate | date" [disabled]="!isEditable">
+      </mat-form-field>
+    </div>
+  </div>
+</div>
+
+<div mat-dialog-actions style="justify-content: center">
+  <button *ngIf="isEditable" style="width: 40%" mat-flat-button color="warn" (click)="isEditable = !isEditable" cdkFocusInitial>Güncelle</button>
+  <button *ngIf="isEditable" style="width: 40%" mat-stroked-button color="primary" (click)="isEditable = !isEditable" cdkFocusInitial>İptal</button>
+  <button *ngIf="!isEditable" style="width: 40%" mat-stroked-button (click)="onNoClick()">Kapat</button>
+  <button *ngIf="!isEditable" style="width: 40%" mat-flat-button color="primary" (click)="isEditable = !isEditable" cdkFocusInitial>Düzenle</button>
+</div>
+
