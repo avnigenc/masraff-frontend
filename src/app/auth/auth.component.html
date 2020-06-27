@@ -3,9 +3,8 @@
     <div fxFlex="60%">
       <mat-card
         style="
-          box-shadow: none;
-          border-radius: 5px;"
-      >
+        box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        border-radius: 5px;">
 
         <mat-tab-group mat-align-tabs="center"
                        [selectedIndex]="selected.value"
@@ -111,13 +110,16 @@
     </div>
 
     <div fxFlex="40%">
-      <mat-card *ngIf="selected.value == 0" style=" box-shadow: none; border-radius: 5px;">
+      <mat-card *ngIf="selected.value == 0" style="box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        border-radius: 5px;">
         <img style="width: 100%; height: 100%" src="assets/images/login.png">
       </mat-card>
 
-      <mat-card *ngIf="selected.value == 1" style=" box-shadow: none; border-radius: 5px;">
+      <mat-card *ngIf="selected.value == 1" style="box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        border-radius: 5px;">
         <img style="width: 100%; height: 100%" src="assets/images/register.png">
       </mat-card>
     </div>
   </div>
+  <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
 </div>

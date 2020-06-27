@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../services/auth.service';
+import { LoginRequest } from '../models/api/request-models/login-request.model';
+import { RegisterRequest } from '../models/api/request-models/register-request.model';
+import { StorageService } from '../services/storage.service';
 
 @Component({
   selector: 'app-auth',
@@ -9,6 +13,9 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./auth.component.scss']
 })
 export class AuthComponent implements OnInit {
+
+  public loading = false;
+
   forRegister = false;
   forLogin = false;
 
@@ -29,7 +36,9 @@ export class AuthComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private authService: AuthService,
+    private storageService: StorageService
   ) {
     this.route.queryParams.subscribe(params => {
       this.forRegister = !!this.route.snapshot.queryParamMap.get('register');
@@ -58,23 +67,56 @@ export class AuthComponent implements OnInit {
   }
 
   register() {
+    this.loading = true;
     if (!this.registerForm.valid) {
-      this.fail('HATA', 'Form geçerli değil');
+      this.loading = false;
+      this.fail('', 'Form geçerli değil');
       return;
     }
-    console.log(this.registerForm.value);
+    const registerRequest = new RegisterRequest();
+    registerRequest.email = this.registerForm.get('email').value;
+    registerRequest.firstName = this.registerForm.get('firstName').value;
+    registerRequest.lastName = this.registerForm.get('lastName').value;
+    registerRequest.password = this.registerForm.get('password').value;
+
+    this.authService.register(registerRequest)
+      .subscribe((response) => {
+        this.success('Kayıt başarılı', '');
+        this.loading = false;
+      }, (error: any) => {
+        this.loading = false;
+        this.fail('Kayıt başarısız', '');
+      });
   }
 
-
   login() {
+    this.loading = true;
     if (!this.loginForm.valid) {
-      this.fail('HATA', 'Form geçerli değil');
+      this.loading = false;
+      this.fail('', 'Form geçerli değil');
       return;
     }
-    console.log(this.loginForm.value);
+    const loginRequest = new LoginRequest();
+    loginRequest.email = this.loginForm.get('email').value;
+    loginRequest.password = this.loginForm.get('password').value;
+    this.authService.login(loginRequest)
+      .subscribe((response) => {
+        console.log(response);
+        this.storageService.setCurrentUser(response.user, response.token);
+        this.success('Giriş başarılı', '');
+        this.loading = false;
+        this.router.navigate(['']);
+    }, (error: any) => {
+        this.loading = false;
+        this.fail('Giriş başarısız', '');
+    });
   }
 
   fail(title: string, description: string) {
     this.toastr.error(title, description);
+  }
+
+  success(title: string, description: string) {
+    this.toastr.success(title, description);
   }
 }
