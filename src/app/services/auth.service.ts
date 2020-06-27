@@ -8,7 +8,8 @@ import { RegisterRequest } from '../models/api/request-models/register-request.m
 
 const routes = {
   login: () => `http://localhost:3000/auth/login`,
-  register: () => `http://localhost:3000/auth/register`
+  register: () => `http://localhost:3000/auth/register`,
+  me: () => `http://localhost:3000/auth/me`,
 };
 
 @Injectable({
@@ -24,6 +25,10 @@ export class AuthService {
 
   register(registerRequest: RegisterRequest): Observable<User> {
     return this.http.post<User>(routes.register(), registerRequest);
+  }
+
+  getCurrentUser(): Observable<User> {
+    return this.http.get<User>(routes.me());
   }
 
 }
