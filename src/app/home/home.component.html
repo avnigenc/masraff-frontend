@@ -1,0 +1,42 @@
+
+<br>
+<br>
+<br>
+<br>
+<div class="container">
+  <div fxLayout fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="30px">
+    <div fxFlex="20%">
+      <mat-card
+        style="height: 750px;
+        box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        border-radius: 5px;">
+        <mat-card-header>
+          <mat-card-title style="color: #3F51B5">Oluşturduğum masrafflar</mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content>
+          <mat-list>
+            <cdk-virtual-scroll-viewport style="height: 750px" itemSize="10" >
+              <ng-container>
+                <mat-list-item *cdkVirtualFor="let expense of [1,2,3,4]; let i = index">
+                  <div mat-line>{{i+1}}</div>
+                  <mat-divider></mat-divider>
+                </mat-list-item>
+
+
+              </ng-container>
+            </cdk-virtual-scroll-viewport>
+          </mat-list>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div fxFlex="80%">
+      <mat-card  style="height: 750px;
+        box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        border-radius: 5px;">
+        <app-data-list></app-data-list>
+      </mat-card>
+    </div>
+  </div>
+
+</div>
