@@ -6,6 +6,7 @@ import { MetaDataService } from '../services/meta-data.service';
 import { Expense } from '../models/business/expense.model';
 import { Currency } from '../models/business/currency.model';
 import { VatRate } from '../models/business/vat-rate.model';
+import { StorageService } from '../services/storage.service';
 
 @Component({
   selector: 'app-data-list',
@@ -44,7 +45,7 @@ export class DataListComponent implements OnInit {
         renderComponent: EditButtonComponent,
         onComponentInitFunction: (instance) => {
           instance.save.subscribe((row) => {
-            this.openDialog(row);
+            this.openDialog(row, 'İncele/Güncelle');
           });
         }
       }
@@ -57,12 +58,15 @@ export class DataListComponent implements OnInit {
     },
     noDataMessage: 'masraf yok',
   };
-
   expenses: Expense[];
   currencies: Currency[];
   vatRates: VatRate[];
 
-  constructor(public dialog: MatDialog, private metaDataService: MetaDataService) { }
+  constructor(
+    public dialog: MatDialog,
+    private metaDataService: MetaDataService,
+    public storageService: StorageService
+  ) {}
 
   ngOnInit() {
     this.getData();
@@ -88,15 +92,19 @@ export class DataListComponent implements OnInit {
     });
   }
 
-  openDialog(row: any): void {
+  openDialog(row: any, dialogTitle, isEdit = false): void {
     const dialogRef = this.dialog.open(CreateOrUpdateExpenseComponent, {
       width: '400px',
-      data: { expense: row, meta: { currencies: this.currencies, vatRates: this.vatRates } }
+      data: { expense: row, meta: { currencies: this.currencies, vatRates: this.vatRates }, isEditable: isEdit, title: dialogTitle }
     });
-
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
   }
 
+  createExpense() {
+    console.log('test');
+    const expense = new Expense();
+    this.openDialog(expense, 'Yeni oluştur', true);
+  }
 }

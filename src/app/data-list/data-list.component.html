@@ -1,4 +1,6 @@
-<app-create-button></app-create-button>
-<mat-divider style="margin-top: 10px"></mat-divider>
+<div *ngIf="storageService.isAuthenticated()">
+  <app-create-button (click)="createExpense()"></app-create-button>
+  <mat-divider style="margin-top: 10px"></mat-divider>
+</div>
 <br >
 <ng2-smart-table style="margin-top: 40px" [settings]="settings" [source]="expenses"></ng2-smart-table>
