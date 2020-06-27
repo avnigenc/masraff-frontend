@@ -4,12 +4,33 @@
   </button>
   <span style="cursor: pointer" routerLink="">masraff</span>
   <span class="example-spacer"></span>
-  <button routerLink="auth" [queryParams]="{ register: true }" mat-flat-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-    Üye ol
+  <button
+    *ngIf="!storageService.isAuthenticated()"
+    routerLink="auth"
+    [queryParams]="{ register: true }"
+    mat-flat-button class="example-icon favorite-icon"
+    aria-label="Example icon-button with heart icon">
+      Üye ol
     <mat-icon color="primary">assignment</mat-icon>
   </button>
-  <button routerLink="auth" [queryParams]="{ login: true }" mat-flat-button class="example-icon icon-margin-left" aria-label="Example icon-button with share icon">
-    Giriş yap
+  <button
+    *ngIf="!storageService.isAuthenticated()"
+    routerLink="auth"
+    [queryParams]="{ login: true }"
+    mat-flat-button
+    class="example-icon icon-margin-left"
+    aria-label="Example icon-button with share icon">
+      Giriş yap
     <mat-icon color="primary">login</mat-icon>
   </button>
+  <button
+    *ngIf="storageService.isAuthenticated()"
+    (click)="logout()"
+    mat-flat-button
+    class="example-icon icon-margin-left"
+    aria-label="Example icon-button with share icon">
+    Çıkış yap
+    <mat-icon color="primary">login</mat-icon>
+  </button>
+  <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
 </mat-toolbar>
