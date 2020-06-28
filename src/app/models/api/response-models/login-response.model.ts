@@ -1,4 +1,4 @@
-import {BaseResponse} from '../base-response.model';
+import { BaseResponse } from '../base-response.model';
 import { User } from '../../business/user.model';
 
 export class LoginResponse extends BaseResponse {

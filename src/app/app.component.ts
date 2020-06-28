@@ -16,13 +16,5 @@ export class AppComponent implements OnInit {
   ) {
   }
 
-  ngOnInit() {
-    // this.getAllMetaData();
-  }
-
-  getAllMetaData() {
-    this.metaDataService.getAllCurrencies().subscribe((res) => console.log(res));
-    this.metaDataService.getAllExpenses().subscribe((res) => console.log(res));
-    this.metaDataService.getAllVatRates().subscribe((res) => console.log(res));
-  }
+  ngOnInit() { }
 }

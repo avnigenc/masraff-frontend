@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { EditButtonComponent } from '../atomic/edit-button/edit-button.component';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateOrUpdateExpenseComponent } from '../molecular/create-or-update-expense/create-or-update-expense.component';
