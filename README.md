@@ -43,7 +43,7 @@
 
 ```
 ##### Installation:
-    git clone https://github.com/avnigenc/masraff-frontend
+    git clone https://github.com/avnigenc/masraff-frontend.git
     cd masraff-frontend
     npm install
     ng serve
