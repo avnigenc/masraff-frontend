@@ -54,3 +54,9 @@
     - Node: 14.4.0
     - OS: linux x64
     - Angular: 8.2.14
+    
+- 
+
+
+- Ekran görüntüleri eklenecek.
+- Video eklenecek.
