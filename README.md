@@ -55,8 +55,8 @@
     - OS: linux x64
     - Angular: 8.2.14
     
-- Ekran görüntüleri eklenecek.
-- Video eklenecek.
+- Ekran görüntüleri eklendi. | /screenshoots
+- Video eklendi. | https://youtu.be/owdCrKq3FNI
 
 Proje kurulumunda sorun yaşanırsa, kendi bilgisayarımda sunum yapabilirim.
 

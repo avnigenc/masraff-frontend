@@ -126,8 +126,9 @@ export class CreateOrUpdateExpenseComponent implements OnInit {
         this.close(true);
         console.log(response);
     }, (error: any) => {
-      console.log(error);
-    });
+        this.createOrUpdateForm.markAllAsTouched();
+        this.toastr.error('Tüm alanlar zorunludur.');
+      });
   }
 
   update() {
