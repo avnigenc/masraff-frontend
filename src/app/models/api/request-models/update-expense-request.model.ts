@@ -1,5 +1,5 @@
 export class UpdateExpenseRequest {
-  id: string;
+  id: number;
   companyName: string;
   totalAmount: number;
   vatAmount: number;
@@ -7,6 +7,8 @@ export class UpdateExpenseRequest {
   vat_rate_id: number;
   // tslint:disable-next-line:variable-name
   currency_id: number;
+  // tslint:disable-next-line:variable-name
+  user_id: number;
   receiptNo: number;
   receiptDate: Date;
   expenseDepositDate: Date;

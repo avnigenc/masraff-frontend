@@ -79,15 +79,18 @@ export class DataListComponent implements OnInit {
 
   ngOnInit() {
     this.getData();
+    this.getAllExpenses();
   }
 
-  getData() {
+  getAllExpenses() {
     this.metaDataService.getAllExpenses().subscribe((response) => {
       this.expenses = response;
     }, (error: any) => {
       console.log(error);
     });
+  }
 
+  getData() {
     this.metaDataService.getAllVatRates().subscribe((response) => {
       this.vatRates = response;
     }, (error: any) => {
@@ -109,6 +112,7 @@ export class DataListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.valueChanged(true);
+        this.getAllExpenses();
       }
       console.log('The dialog was closed');
     });

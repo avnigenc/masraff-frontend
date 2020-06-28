@@ -31,7 +31,7 @@
 
           <mat-form-field class="form-field" appearance="outline" style="width: 100%">
             <mat-label>KDV oranı</mat-label>
-            <mat-select [(value)]="expense.vatRate.amount" [disabled]="!isEditable"  (selectionChange)="setVatRate($event)">
+            <mat-select [(value)]="expense.vatRate.id" [disabled]="!isEditable"  (selectionChange)="setVatRate($event)">
               <mat-option *ngFor="let vatRate of vatRates" [value]="vatRate.id">
                 {{ vatRate.amount }}
               </mat-option>
@@ -40,7 +40,7 @@
 
           <mat-form-field class="form-field" appearance="outline" style="width: 100%">
             <mat-label>Para birimi</mat-label>
-            <mat-select [(value)]="expense.currency.name" [disabled]="!isEditable" (selectionChange)="setCurrency($event)">
+            <mat-select [(value)]="expense.currency.id" [disabled]="!isEditable" (selectionChange)="setCurrency($event)">
               <mat-option *ngFor="let currency of currencies" [value]="currency.id">
                 {{ currency.name }}
               </mat-option>
@@ -59,10 +59,10 @@
 
           <mat-form-field class="form-field" appearance="outline" style="width: 100%">
             <mat-label>Fiş tarihi</mat-label>
-            <input matInput [value]="expense.expenseDepositDate" [matDatepicker]="picker1" formControlName="receiptDate">
+            <input matInput [value]="expense.receiptDate" [matDatepicker]="picker1" formControlName="receiptDate">
             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
             <mat-datepicker #picker1></mat-datepicker>
-            <mat-error *ngIf="createOrUpdateForm.controls.receiptDate.touched">
+            <mat-error>
               <span *ngIf="createOrUpdateForm.get('receiptDate').errors?.required">Bu alan zorunlu.</span>
             </mat-error>
           </mat-form-field>
@@ -72,11 +72,10 @@
             <input matInput [value]="expense.expenseDepositDate" [matDatepicker]="picker" formControlName="expenseDepositDate">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
-            <mat-error *ngIf="createOrUpdateForm.controls.expenseDepositDate.touched">
+            <mat-error>
               <span *ngIf="createOrUpdateForm.get('expenseDepositDate').errors?.required">Bu alan zorunlu.</span>
             </mat-error>
           </mat-form-field>
-
         </form>
       </div>
     </div>

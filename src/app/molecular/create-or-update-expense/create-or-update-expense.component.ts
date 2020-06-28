@@ -10,6 +10,7 @@ import { User } from 'src/app/models/business/user.model';
 import { StorageService } from '../../services/storage.service';
 import { AuthService } from '../../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { UpdateExpenseRequest } from '../../models/api/request-models/update-expense-request.model';
 
 @Component({
   selector: 'app-create-or-update-expense',
@@ -29,6 +30,7 @@ export class CreateOrUpdateExpenseComponent implements OnInit {
 
   isAuth = false;
   createExpense: CreateExpenseRequest;
+  updateExpense: UpdateExpenseRequest;
 
   constructor(
     public dialogRef: MatDialogRef<CreateOrUpdateExpenseComponent>,
@@ -53,7 +55,19 @@ export class CreateOrUpdateExpenseComponent implements OnInit {
       expenseDepositDate: ['', Validators.required],
     });
     if (!this.isEditable) {
+      console.log(this.expense);
       this.createOrUpdateForm.disable();
+      this.updateExpense = new UpdateExpenseRequest();
+      this.updateExpense.companyName = this.expense.companyName;
+      this.updateExpense.totalAmount = +this.expense.totalAmount;
+      this.updateExpense.vatAmount = +this.expense.vatAmount;
+      this.updateExpense.vat_rate_id = this.expense.vatRate.id;
+      this.updateExpense.currency_id = this.expense.currency.id;
+      this.updateExpense.user_id = this.expense.user_id;
+      this.updateExpense.expenseDepositDate = this.expense.expenseDepositDate;
+      this.updateExpense.receiptDate = this.expense.receiptDate;
+      this.updateExpense.receiptNo = this.expense.receiptNo;
+      this.updateExpense.id = this.expense.id;
     }
     this.isAuth = this.storageService.isAuthenticated();
     if (this.isAuth) {
@@ -97,16 +111,12 @@ export class CreateOrUpdateExpenseComponent implements OnInit {
       this.createOrUpdateForm.markAllAsTouched();
       return;
     }
-
-
     this.createExpense.companyName = this.createOrUpdateForm.get('companyName').value;
     this.createExpense.totalAmount = +this.createOrUpdateForm.get('totalAmount').value;
     this.createExpense.vatAmount = +this.createOrUpdateForm.get('vatAmount').value;
     this.createExpense.receiptNo = +this.createOrUpdateForm.get('receiptNo').value;
-    // @ts-ignore
-    this.createExpense.receiptDate = '2020-06-26T17:03:55.813Z';
-    // @ts-ignore
-    this.createExpense.expenseDepositDate = '2020-06-26T17:03:55.813Z';
+    this.createExpense.receiptDate = this.expense.receiptDate;
+    this.createExpense.expenseDepositDate = this.expense.expenseDepositDate;
     this.createExpense.user_id = this.user.id;
     console.log(this.createExpense);
 
@@ -118,19 +128,46 @@ export class CreateOrUpdateExpenseComponent implements OnInit {
     }, (error: any) => {
       console.log(error);
     });
-
-    console.log('create passsed');
-
   }
 
   update() {
     console.log('update');
-    if (!this.createOrUpdateForm.valid) {
+    if (!this.createOrUpdateForm.valid &&
+          this.createExpense.vat_rate_id !== undefined &&
+            this.createExpense.currency_id !== undefined) {
+      console.log(this.createOrUpdateForm);
+      this.createOrUpdateForm.markAllAsTouched();
       return;
     }
 
-    this.expenseService.update(this.createOrUpdateForm.value).subscribe(
+    if (this.createOrUpdateForm.get('companyName').touched) {
+      this.updateExpense.companyName = this.createOrUpdateForm.get('companyName').value;
+    }
+
+    if (this.createOrUpdateForm.get('totalAmount').touched) {
+      this.updateExpense.totalAmount = +this.createOrUpdateForm.get('totalAmount').value;
+    }
+
+    if (this.createOrUpdateForm.get('vatAmount').touched) {
+      this.updateExpense.vatAmount = +this.createOrUpdateForm.get('vatAmount').value;
+    }
+
+    if (this.createOrUpdateForm.get('receiptNo').touched) {
+      this.updateExpense.receiptNo = +this.createOrUpdateForm.get('receiptNo').value;
+    }
+
+    this.updateExpense.receiptDate = this.expense.receiptDate;
+    this.updateExpense.expenseDepositDate = this.expense.expenseDepositDate;
+    this.updateExpense.user_id = this.user.id;
+
+    console.log(this.updateExpense);
+
+
+    this.expenseService.update(this.updateExpense).subscribe(
       (response) => {
+        console.log(response);
+        this.toastr.info('Fiş güncellendi!');
+        this.close(true);
         console.log(response);
       }, (error: any) => {
         console.log(error);
@@ -139,10 +176,12 @@ export class CreateOrUpdateExpenseComponent implements OnInit {
 
   setCurrency($event: any) {
     this.createExpense.currency_id = $event.value;
+    this.updateExpense.currency_id = $event.value;
   }
 
   setVatRate($event: any) {
     this.createExpense.vat_rate_id = $event.value;
+    this.updateExpense.vat_rate_id = $event.value;
   }
 
 }

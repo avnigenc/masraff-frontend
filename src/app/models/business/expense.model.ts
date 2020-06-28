@@ -9,7 +9,7 @@ export class Expense {
   vatAmount: number;
   receiptNo: number;
   receiptDate: Date;
-  expenseDepositDate;
+  expenseDepositDate: Date;
 
   // tslint:disable-next-line:variable-name
   vat_rate_id: number;
@@ -35,5 +35,7 @@ export class Expense {
     this.vatRate = new VatRate();
     this.currency = new Currency();
     this.user = new User();
+    this.receiptDate = new Date();
+    this.expenseDepositDate = new Date();
   }
 }
