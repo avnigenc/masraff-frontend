@@ -55,8 +55,9 @@
     - OS: linux x64
     - Angular: 8.2.14
     
-- 
-
-
 - Ekran görüntüleri eklenecek.
 - Video eklenecek.
+
+Proje kurulumunda sorun yaşanırsa, kendi bilgisayarımda sunum yapabilirim.
+
+
