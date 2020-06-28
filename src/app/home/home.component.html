@@ -1,6 +1,6 @@
 <div class="container">
   <div fxLayout fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="30px">
-    <div fxFlex="20%">
+    <div fxFlex="20%" *ngIf="isAuth">
       <mat-card
         style="height: 750px;
         box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -25,7 +25,7 @@
         </mat-card-content>
       </mat-card>
     </div>
-    <div fxFlex="80%">
+    <div fxFlex="100%">
       <mat-card  style="height: 750px;
         box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
         border-radius: 5px;">
