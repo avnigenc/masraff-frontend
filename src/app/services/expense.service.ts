@@ -26,10 +26,11 @@ export class ExpenseService {
     return this.http.post<Expense>(routes.update(), updateExpenseRequest);
   }
 
-  getAllExpensesById(userId: string): Observable<Expense[]> {
+  getAllExpensesById(userId: number): Observable<Expense[]> {
     const getAllExpenses =  {
       user_id: userId
     };
+    console.log(getAllExpenses);
     return this.http.post<Expense[]>(routes.getAllExpensesById(), getAllExpenses);
   }
 

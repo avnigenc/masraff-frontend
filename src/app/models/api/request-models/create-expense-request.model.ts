@@ -10,5 +10,5 @@ export class CreateExpenseRequest {
   receiptDate: Date;
   expenseDepositDate: Date;
   // tslint:disable-next-line:variable-name
-  user_id: string;
+  user_id: number;
 }

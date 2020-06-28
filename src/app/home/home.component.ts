@@ -24,7 +24,6 @@ export class HomeComponent implements OnInit {
     this.isAuth = this.storageService.isAuthenticated();
     if (this.isAuth) {
       this.authService.getCurrentUser().subscribe((response) => {
-        console.log(response);
         this.user = response;
         this.getAllExpensesById(this.user.id);
       }, (error: any) => {
@@ -36,7 +35,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
   }
 
-  getAllExpensesById(id: string) {
+  getAllExpensesById(id: number) {
     this.expenseService.getAllExpensesById(id).subscribe((response) => {
       console.log(response);
       this.myExpenses = response;
@@ -45,4 +44,7 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  updateMyExpenses($event: any) {
+    this.getAllExpensesById(this.user.id);
+  }
 }

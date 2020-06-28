@@ -31,26 +31,20 @@
 
           <mat-form-field class="form-field" appearance="outline" style="width: 100%">
             <mat-label>KDV oranı</mat-label>
-            <mat-select [(value)]="expense.vatRate.amount" [disabled]="!isEditable">
-              <mat-option *ngFor="let vatRate of vatRates" [value]="vatRate.amount">
+            <mat-select [(value)]="expense.vatRate.amount" [disabled]="!isEditable"  (selectionChange)="setVatRate($event)">
+              <mat-option *ngFor="let vatRate of vatRates" [value]="vatRate.id">
                 {{ vatRate.amount }}
               </mat-option>
             </mat-select>
-            <mat-error *ngIf="createOrUpdateForm.controls.vatRate.touched">
-              <span *ngIf="createOrUpdateForm.get('vatRate').errors?.required">Bu alan zorunlu.</span>
-            </mat-error>
           </mat-form-field>
 
           <mat-form-field class="form-field" appearance="outline" style="width: 100%">
             <mat-label>Para birimi</mat-label>
-            <mat-select [(value)]="expense.currency.name" [disabled]="!isEditable">
-              <mat-option *ngFor="let currency of currencies" [value]="currency.name">
+            <mat-select [(value)]="expense.currency.name" [disabled]="!isEditable" (selectionChange)="setCurrency($event)">
+              <mat-option *ngFor="let currency of currencies" [value]="currency.id">
                 {{ currency.name }}
               </mat-option>
             </mat-select>
-            <mat-error *ngIf="createOrUpdateForm.controls.currency.touched">
-              <span *ngIf="createOrUpdateForm.get('currency').errors?.required">Bu alan zorunlu.</span>
-            </mat-error>
           </mat-form-field>
 
           <mat-form-field class="form-field" appearance="outline" style="width: 100%">

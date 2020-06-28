@@ -1,9 +1,11 @@
 export class User {
-  id: string;
+  id: number;
   email: string;
   firstName: string;
   lastName: string;
   password: string;
-  createdAt: Date;
-  updatedAt: Date;
+  // tslint:disable-next-line:variable-name
+  created_at: Date;
+  // tslint:disable-next-line:variable-name
+  updated_at: Date;
 }

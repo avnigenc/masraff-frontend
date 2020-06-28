@@ -3,7 +3,7 @@ import { Currency } from './currency.model';
 import { User } from './user.model';
 
 export class Expense {
-  id: string;
+  id: number;
   companyName: string;
   totalAmount: number;
   vatAmount: number;
@@ -22,8 +22,10 @@ export class Expense {
   currency: Currency;
   user: User;
 
-  createdAt: Date;
-  updatedAt: Date;
+  // tslint:disable-next-line:variable-name
+  created_at: Date;
+  // tslint:disable-next-line:variable-name
+  updated_at: Date;
 
   constructor() {
     this.companyName = '';

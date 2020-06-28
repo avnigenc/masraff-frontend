@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { EditButtonComponent } from '../atomic/edit-button/edit-button.component';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateOrUpdateExpenseComponent } from '../molecular/create-or-update-expense/create-or-update-expense.component';
@@ -7,6 +7,7 @@ import { Expense } from '../models/business/expense.model';
 import { Currency } from '../models/business/currency.model';
 import { VatRate } from '../models/business/vat-rate.model';
 import { StorageService } from '../services/storage.service';
+import { User } from '../models/business/user.model';
 
 @Component({
   selector: 'app-data-list',
@@ -61,12 +62,20 @@ export class DataListComponent implements OnInit {
   expenses: Expense[];
   currencies: Currency[];
   vatRates: VatRate[];
+  user: User;
+  @Output() valueChange = new EventEmitter();
+
 
   constructor(
     public dialog: MatDialog,
     private metaDataService: MetaDataService,
     public storageService: StorageService
-  ) {}
+  ) { }
+
+
+  valueChanged(isAction = false) {
+    this.valueChange.emit(isAction);
+  }
 
   ngOnInit() {
     this.getData();
@@ -95,9 +104,12 @@ export class DataListComponent implements OnInit {
   openDialog(row: any, dialogTitle, isEdit = false): void {
     const dialogRef = this.dialog.open(CreateOrUpdateExpenseComponent, {
       width: '400px',
-      data: { expense: row, meta: { currencies: this.currencies, vatRates: this.vatRates }, isEditable: isEdit, title: dialogTitle }
+      data: { expense: row, meta: { currencies: this.currencies, vatRates: this.vatRates }, isEditable: isEdit, title: dialogTitle, user: this.user }
     });
     dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.valueChanged(true);
+      }
       console.log('The dialog was closed');
     });
   }
